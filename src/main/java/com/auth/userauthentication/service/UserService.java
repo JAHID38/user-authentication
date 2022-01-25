@@ -79,4 +79,9 @@ public class UserService implements IUserService, UserDetailsService {
         Role role = getByRoleId(userRole.getRole_id());
         user.getRole().add(role);
     }
+
+    @Override
+    public void deleteByUserId(Long id) {
+        iUserRepository.deleteById(id);
+    }
 }

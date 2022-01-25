@@ -28,14 +28,25 @@ public class UserController {
         return ResponseEntity.ok().body(users);
     }
 
-    @PostMapping("user/add")
+    @PostMapping("/user/add")
     public ResponseEntity saveUser(@RequestBody User user)
     {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/auth/user/add").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 
-    @PostMapping("user-role/add")
+    @DeleteMapping("/delete/user/{id}")
+    public ResponseEntity deleteUser (@PathVariable("id") Long id)
+    {
+        if (userService.getByUserId(id) == null)
+        {
+            return ResponseEntity.ok().body("No user found with ID : " +id);
+        }
+        userService.deleteByUserId(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/user-role/add")
     public ResponseEntity saveUserRole(@RequestBody UserRole userRole)
     {
         userService.addUserRole(userRole);

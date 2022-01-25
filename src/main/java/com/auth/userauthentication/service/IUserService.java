@@ -11,4 +11,5 @@ public interface IUserService {
     User getByUserId (Long id);
     User getByUsername (String username);
     void addUserRole(UserRole userRole);
+    void deleteByUserId(Long id);
 }
